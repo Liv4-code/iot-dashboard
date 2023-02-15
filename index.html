@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@500&family=Mulish:wght@200;300&family=Oswald:wght@300&family=Roboto:wght@300&display=swap"
+            rel="stylesheet"
+        />
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+            crossorigin="anonymous"
+        />
+        <link rel="stylesheet" href="styles.css" />
+        <title>IOT Device Dashboard</title>
+    </head>
+    <body>
+        <div class="top-nav-buttons">
+            <a class="nav-link" href="#deviceOverviewTable"
+                ><button class="nav-button">Device Overview Table</button></a
+            >
+            <a class="nav-link" href="#chartAnalysis"
+                ><button class="nav-button">Chart Analysis</button></a
+            >
+            <a class="nav-link" href="#compareDevices"
+                ><button class="nav-button">Compare Devices</button></a
+            >
+        </div>
+
+        <!-- PROPERTY DETAILS-->
+        <div class="property-details-container">
+            <div class="p-3 row justify-content-around align-items-center">
+                <div
+                    class="property-images col-sm-3 d-flex flex-column justify-content-center align-items-center"
+                >
+                    <img id="companyLogoOutput" src="#" alt="Company Logo" />
+                </div>
+                <div class="property-details col-sm-3 d-flex flex-column p-0">
+                    <div
+                        class="details my-5 d-flex align-items-center justify-content-center"
+                    >
+                        <div
+                            id="organizationDetails"
+                            class="my-5 d-flex flex-column align-items-center"
+                        >
+                            <h5 id="companyNameOutput" class="text-center"></h5>
+                            <h6
+                                id="companyAddressOutput"
+                                class="text-center"
+                            ></h6>
+                        </div>
+                    </div>
+                    <div class="icons d-grid mt-2">
+                        <div class="row">
+                            <div
+                                class="unit-number property-info col-sm d-flex flex-column align-items-center m-3 p-0"
+                            >
+                                <p id="unitsOutput" class="m-0"></p>
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    aria-hidden="true"
+                                    role="img"
+                                    width="2.8em"
+                                    height="2.8em"
+                                    preserveAspectRatio="xMidYMid meet"
+                                    viewBox="0 0 640 512"
+                                >
+                                    <path
+                                        fill="currentColor"
+                                        d="M336 0c26.5 0 48 21.49 48 48v319.8c-38.2 21.4-64 62.2-64 109.1c0 12.9 3.6 24.9 9.9 35.1H240v-80c0-26.5-21.5-48-48-48s-48 21.5-48 48v80H48c-26.51 0-48-21.5-48-48V48C0 21.49 21.49 0 48 0h288zM64 272c0 8.8 7.16 16 16 16h32c8.8 0 16-7.2 16-16v-32c0-8.8-7.2-16-16-16H80c-8.84 0-16 7.2-16 16v32zm112-48c-8.8 0-16 7.2-16 16v32c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16v-32c0-8.8-7.2-16-16-16h-32zm80 48c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16v-32c0-8.8-7.2-16-16-16h-32c-8.8 0-16 7.2-16 16v32zM80 96c-8.84 0-16 7.2-16 16v32c0 8.8 7.16 16 16 16h32c8.8 0 16-7.2 16-16v-32c0-8.8-7.2-16-16-16H80zm80 48c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16v-32c0-8.8-7.2-16-16-16h-32c-8.8 0-16 7.2-16 16v32zm112-48c-8.8 0-16 7.2-16 16v32c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16v-32c0-8.8-7.2-16-16-16h-32zm304 176c0 44.2-35.8 80-80 80s-80-35.8-80-80s35.8-80 80-80s80 35.8 80 80zM352 477.1c0-51.4 41.7-93.1 93.1-93.1h101.8c51.4 0 93.1 41.7 93.1 93.1c0 19.3-15.6 34.9-34.9 34.9H386.9c-19.3 0-34.9-15.6-34.9-34.9z"
+                                    />
+                                </svg>
+                                <p>UNITS</p>
+                            </div>
+                            <div
+                                class="meter-type property-info col-sm d-flex flex-column align-items-center m-3 p-0"
+                            >
+                                <p id="meterTypeOutput" class="m-0"></p>
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    aria-hidden="true"
+                                    role="img"
+                                    width="2.8em"
+                                    height="2.8em"
+                                    preserveAspectRatio="xMidYMid meet"
+                                    viewBox="0 0 24 24"
+                                >
+                                    <path
+                                        fill="currentColor"
+                                        d="M16 4h-1V2h-2v2h-2V2H9v2H8C5.79 4 4 5.79 4 8v10c0 2.21 1.79 4 4 4h8c2.21 0 4-1.79 4-4V8c0-2.21-1.79-4-4-4m-4 14c-1.38 0-2.5-1.1-2.5-2.46c0-1.09.43-1.39 2.5-3.79c2.05 2.38 2.5 2.7 2.5 3.79C14.5 16.9 13.38 18 12 18m4-8H8V8h8v2Z"
+                                    />
+                                </svg>
+                                <p>METER</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div
+                                class="building-type property-info col-sm d-flex flex-column align-items-center m-3 p-0"
+                            >
+                                <p class="m-0">TYPE</p>
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    aria-hidden="true"
+                                    role="img"
+                                    width="3em"
+                                    height="3em"
+                                    preserveAspectRatio="xMidYMid meet"
+                                    viewBox="0 0 24 24"
+                                >
+                                    <path
+                                        fill="currentColor"
+                                        d="M17 11V5c0-1.1-.9-2-2-2H9c-1.1 0-2 .9-2 2v2H5c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h5c.55 0 1-.45 1-1v-3h2v3c0 .55.45 1 1 1h5c1.1 0 2-.9 2-2v-6c0-1.1-.9-2-2-2h-2zM7 19H5v-2h2v2zm0-4H5v-2h2v2zm0-4H5V9h2v2zm4 4H9v-2h2v2zm0-4H9V9h2v2zm0-4H9V5h2v2zm4 8h-2v-2h2v2zm0-4h-2V9h2v2zm0-4h-2V5h2v2zm4 12h-2v-2h2v2zm0-4h-2v-2h2v2z"
+                                    />
+                                </svg>
+                                <p id="buildingType"></p>
+                            </div>
+                            <div
+                                class="alert-total property-info col-sm d-flex flex-column align-items-center m-3 p-0"
+                            >
+                                <p class="m-0">FLOORS</p>
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="3em"
+                                    height="3em"
+                                    preserveAspectRatio="xMidYMid meet"
+                                    viewBox="0 0 24 24"
+                                >
+                                    <path
+                                        fill="currentColor"
+                                        d="M10 5v5H9V5H5v8h4v-1h1v5H9v-3H5v5h7v-2h1v2h6v-2h2v4H3V3h18v12h-2v-5h-6v5h-1V9h7V5h-9Z"
+                                    />
+                                </svg>
+                                <p id="floors"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="row">
+                        <div class="dashboard-leak col-sm">
+                            <div id="leak-percentage">
+                                <div id="radial-bar-chart"></div>
+                            </div>
+                        </div>
+                        <div
+                            class="wm-installed-details col-sm d-flex flex-column justify-content-around align-items-center"
+                        >
+                            <div class="d-flex mb-3 align-items-center">
+                                <div id="wm-check" class="wm-dot"></div>
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="3em"
+                                    height="3em"
+                                    preserveAspectRatio="xMidYMid meet"
+                                    viewBox="0 0 24 24"
+                                >
+                                    <path
+                                        fill="currentColor"
+                                        d="M21.163 13.184a2.852 2.852 0 0 0-.678.084a8.737 8.737 0 0 0-6.917-6.445a8.393 8.393 0 0 0-.441-.067c.026-.825.064-1.779 1.278-2.636l-.192-.484s-2.37.735-2.639 2.76c-.117-.551-1.22-1.24-1.767-1.371l-.272.438s.724.362.901 1.361a8.737 8.737 0 0 0-6.92 6.44a2.834 2.834 0 1 0-1.362 5.502a2.835 2.835 0 0 0 1.72-.114a8.682 8.682 0 0 0 .92 1.712l2.352-1.585c-.638-.807-1.02-1.988-1.087-3.173c-.07-1.294.244-2.576 1.07-3.33c1.702-1.449 3.556-.788 4.713.6h.312c1.16-1.388 3.017-2.048 4.713-.6c.825.754 1.14 2.038 1.07 3.33c-.065 1.185-.448 2.366-1.087 3.173l2.353 1.585a8.685 8.685 0 0 0 .922-1.712a2.833 2.833 0 0 0 2.082-5.27a2.835 2.835 0 0 0-1.044-.198zM2.786 16.848a.836.836 0 0 1 0-1.672a.844.844 0 0 1 .469.144c.007.44.037.878.09 1.314c-.148.134-.374.233-.559.214zm18.427 0a.836.836 0 0 1-.558-.215a12.679 12.679 0 0 0 .09-1.314a.835.835 0 0 1 1.304.693c.007.457-.383.858-.836.836z"
+                                    />
+                                </svg>
+                            </div>
+                            <h5>Consumption Data Last 30 Days</h5>
+                            <div
+                                class="wmStats total-water-consumption text-center mb-4"
+                            >
+                                <h6>Total Water Consumption</h6>
+                                <p id="wmWaterConsumptionOutput"></p>
+                            </div>
+                            <div
+                                class="wmStats total-water-cost text-center mb-4"
+                            >
+                                <h6>Total Water Cost</h6>
+                                <p id="wmWaterCostOutput"></p>
+                            </div>
+                            <div class="wmStats leak-cost text-center">
+                                <h6>Leak Cost</h6>
+                                <p id="wmLeakCostOutput"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- LINK TO DEVICE OVERVIEW TABLE-->
+        <a id="deviceOverviewTable"></a>
+
+        <!-- DEVICE STATUS CHECK -->
+
+        <div id="table-container" class="d-flex flex-column">
+            <div
+                id="table-nav-container"
+                class="d-flex justify-content-between"
+            >
+                <!-- LEGEND -->
+                <div class="legend">
+                    <div class="grey legend-section">
+                        <h6 class="text-center mb-0">Okay</h6>
+                        <div class="dot"></div>
+                    </div>
+                    <div class="yellow legend-section">
+                        <h6 class="text-center mb-0">Alert</h6>
+                        <div class="dot"></div>
+                    </div>
+                </div>
+                <!-- MODE SELECTION BUTTON -->
+                <div
+                    id="mode-selection-container"
+                    class="d-flex justify-content-center align-items-center"
+                >
+                    <button id="select-pou-mode-btn" class="btn text-white">
+                        View Apartment Mode Table
+                    </button>
+                    <button
+                        id="select-riser-mode-btn"
+                        class="btn text-white d-none"
+                    >
+                        View Riser Mode Table
+                    </button>
+                </div>
+            </div>
+
+            <!-- RISER TABLE-->
+
+            <table id="riserDeviceTable" class="table table-bordered d-none">
+                <thead>
+                    <tr>
+                        <th class="text-center">Status Check</th>
+                        <th class="text-center">High Usage</th>
+                        <th class="text-center">Leak</th>
+                        <th class="text-center">Signal</th>
+                        <th class="text-center">Battery</th>
+                        <th class="text-center">Offline</th>
+                    </tr>
+                </thead>
+                <tbody id="riserDeviceTableOutput">
+                    <tr id="loadingDot" class="d-none">
+                        <td colspan="6">
+                            <div class="justify-content-center">
+                                <div
+                                    class="spinner-grow text-secondary"
+                                    role="status"
+                                >
+                                    <span class="sr-only"></span>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- POU TABLE -->
+
+            <div id="pou-device-table" class="d-none mb-5">
+                <!-- Loading Dot -->
+
+                <div
+                    id="pouLoadingDot"
+                    class="d-none d-flex justify-content-center my-2"
+                >
+                    <div class="spinner-grow text-secondary" role="status">
+                        <span class="sr-only"></span>
+                    </div>
+                    <p class="mx-5" id="loadingPrompt">
+                        Please Wait... Performing Initial Data Collection
+                    </p>
+                </div>
+                <div class="container mt-2">
+                    <!-- Table structure here -->
+                    <table class="table" id="our-table">
+                        <thead>
+                            <tr>
+                                <th>Device Location</th>
+                                <th class="wsTableHeader">Leak Alert</th>
+                                <th class="wsTableHeader">Battery</th>
+                                <th class="wsTableHeader">Offline</th>
+                            </tr>
+                        </thead>
+                        <tbody id="table-body"></tbody>
+                    </table>
+                </div>
+
+                <div class="container">
+                    <div id="pagination-wrapper"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Time Picker Buttons -->
+        <div id="time-picker-container">
+            <div id="time-picker-buttons">
+                <button
+                    id="dayButton"
+                    class="time-picker-btn btn"
+                    type="button"
+                >
+                    Current Day
+                </button>
+                <button
+                    id="weekButton"
+                    class="time-picker-btn selected btn"
+                    type="button"
+                >
+                    Current Week
+                </button>
+                <button
+                    id="monthButton"
+                    class="time-picker-btn btn"
+                    type="button"
+                >
+                    30 Day Rolling
+                </button>
+                <button
+                    id="yearButton"
+                    class="time-picker-btn btn"
+                    type="button"
+                >
+                    12 Month Rolling
+                </button>
+            </div>
+        </div>
+
+        <!-- Loading Dot -->
+        <div
+            id="chart-loading-dot"
+            class="d-none d-flex justify-content-center"
+        >
+            <div class="spinner-grow text-secondary" role="status">
+                <span class="sr-only"></span>
+            </div>
+            <p class="mx-5">Updating</p>
+        </div>
+
+        <!-- LINK TO CHART ANALYSIS-->
+        <a id="chartAnalysis"></a>
+
+        <!-- RISER CHART -->
+        <div id="riser-chart"></div>
+
+        <!-- POU CHART -->
+        <div id="pou-chart-container">
+            <!-- LEGEND -->
+            <div
+                id="legendContainer"
+                class="my-3 d-flex justify-content-center align-items-center"
+            >
+                <div class="legendItem">
+                    <div id="legend-marker-1"></div>
+                    <p class="m-0">Low to Normal Activity</p>
+                </div>
+                <div class="legendItem">
+                    <div id="legend-marker-2"></div>
+                    <p class="m-0">High Activity Detected</p>
+                </div>
+            </div>
+
+            <div
+                class="d-flex justify-content-center align-items-center"
+                id="pou-chart"
+            ></div>
+        </div>
+
+        <!-- COMPARISON CARDS -->
+
+        <!-- LINK TO COMPARE DEVICES-->
+        <a id="compareDevices"></a>
+
+        <div class="container my-4">
+            <div class="row g-2">
+                <div
+                    id="compCardsLoadingDot"
+                    class="d-none d-flex justify-content-center"
+                >
+                    <div class="spinner-grow text-secondary" role="status">
+                        <span class="sr-only"></span>
+                    </div>
+                </div>
+                <div class="col-md gx-3">
+                    <div class="comparison-card">
+                        <div class="d-flex justify-content-between">
+                            <h6 id="card1ChosenDevice">Choose Device</h6>
+                            <button
+                                class="choose-device-button card1DropdownArrow"
+                            >
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    aria-hidden="true"
+                                    role="img"
+                                    width="1.2em"
+                                    height="1.2em"
+                                    preserveAspectRatio="xMidYMid meet"
+                                    viewBox="0 0 24 24"
+                                >
+                                    <path
+                                        fill="none"
+                                        stroke="currentColor"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        stroke-width="4"
+                                        d="m4 9l8 8l8-8"
+                                    />
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="card1DropdownList device-dropdown">
+                            <ul class="card1DeviceList"></ul>
+                        </div>
+                        <hr />
+                        <div class="d-flex flex-column">
+                            <div class="info-container">
+                                <div class="info-block m-1">
+                                    <h6 class="info-heading">Total Volume</h6>
+                                    <div id="totalVolumeOutput1">0</div>
+                                </div>
+                                <div class="info-block m-1">
+                                    <h6 class="info-heading">Total Cost</h6>
+                                    <div id="totalCostOutput1">0</div>
+                                </div>
+                            </div>
+                            <div class="info-container">
+                                <div class="info-block m-1">
+                                    <h6 class="info-heading">
+                                        Consumption Volume
+                                    </h6>
+                                    <div id="consumptionVolumeOutput1">0</div>
+                                </div>
+                                <div class="info-block m-1">
+                                    <h6 class="info-heading">
+                                        Consumption Cost
+                                    </h6>
+                                    <div id="consumptionCostOutput1">0</div>
+                                </div>
+                            </div>
+                            <div class="info-container">
+                                <div class="info-block m-1">
+                                    <h6 class="info-heading">Leak Volume</h6>
+                                    <div id="leakVolumeOutput1">0</div>
+                                </div>
+                                <div class="info-block m-1">
+                                    <h6 class="info-heading">Leak Cost</h6>
+                                    <div id="leakCostOutput1">0</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md gx-3">
+                    <div class="comparison-card card-two">
+                        <div class="d-flex justify-content-between">
+                            <h6 id="card2ChosenDevice">Choose Device</h6>
+                            <button
+                                class="choose-device-button card2DropdownArrow"
+                            >
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    aria-hidden="true"
+                                    role="img"
+                                    width="1.2em"
+                                    height="1.2em"
+                                    preserveAspectRatio="xMidYMid meet"
+                                    viewBox="0 0 24 24"
+                                >
+                                    <path
+                                        fill="none"
+                                        stroke="currentColor"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        stroke-width="4"
+                                        d="m4 9l8 8l8-8"
+                                    />
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="card2DropdownList device-dropdown">
+                            <ul class="card2DeviceList"></ul>
+                        </div>
+                        <hr />
+                        <div class="d-flex flex-column">
+                            <div class="info-container">
+                                <div class="info-block m-1">
+                                    <h6 class="info-heading">Total Volume</h6>
+                                    <div id="totalVolumeOutput2">0</div>
+                                </div>
+                                <div class="info-block m-1">
+                                    <h6 class="info-heading">Total Cost</h6>
+                                    <div id="totalCostOutput2">0</div>
+                                </div>
+                            </div>
+                            <div class="info-container">
+                                <div class="info-block m-1">
+                                    <h6 class="info-heading">
+                                        Consumption Volume
+                                    </h6>
+                                    <div id="consumptionVolumeOutput2">0</div>
+                                </div>
+                                <div class="info-block m-1">
+                                    <h6 class="info-heading">
+                                        Consumption Cost
+                                    </h6>
+                                    <div id="consumptionCostOutput2">0</div>
+                                </div>
+                            </div>
+                            <div class="info-container">
+                                <div class="info-block m-1">
+                                    <h6 class="info-heading">Leak Volume</h6>
+                                    <div id="leakVolumeOutput2">0</div>
+                                </div>
+                                <div class="info-block m-1">
+                                    <h6 class="info-heading">Leak Cost</h6>
+                                    <div id="leakCostOutput2">0</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg gx-3">
+                    <div class="comparison-card card-three">
+                        <div class="d-flex justify-content-between">
+                            <h6 id="card3ChosenDevice">Choose Device</h6>
+                            <button
+                                class="choose-device-button card3DropdownArrow"
+                            >
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    aria-hidden="true"
+                                    role="img"
+                                    width="1.2em"
+                                    height="1.2em"
+                                    preserveAspectRatio="xMidYMid meet"
+                                    viewBox="0 0 24 24"
+                                >
+                                    <path
+                                        fill="none"
+                                        stroke="currentColor"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        stroke-width="4"
+                                        d="m4 9l8 8l8-8"
+                                    />
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="card3DropdownList device-dropdown">
+                            <ul class="card3DeviceList"></ul>
+                        </div>
+                        <hr />
+                        <div class="d-flex flex-column">
+                            <div class="info-container">
+                                <div class="info-block m-1">
+                                    <h6 class="info-heading">Total Volume</h6>
+                                    <div id="totalVolumeOutput3">0</div>
+                                </div>
+                                <div class="info-block m-1">
+                                    <h6 class="info-heading">Total Cost</h6>
+                                    <div id="totalCostOutput3">0</div>
+                                </div>
+                            </div>
+                            <div class="info-container">
+                                <div class="info-block m-1">
+                                    <h6 class="info-heading">
+                                        Consumption Volume
+                                    </h6>
+                                    <div id="consumptionVolumeOutput3">0</div>
+                                </div>
+                                <div class="info-block m-1">
+                                    <h6 class="info-heading">
+                                        Consumption Cost
+                                    </h6>
+                                    <div id="consumptionCostOutput3">0</div>
+                                </div>
+                            </div>
+                            <div class="info-container">
+                                <div class="info-block m-1">
+                                    <h6 class="info-heading">Leak Volume</h6>
+                                    <div id="leakVolumeOutput3">0</div>
+                                </div>
+                                <div class="info-block m-1">
+                                    <h6 class="info-heading">Leak Cost</h6>
+                                    <div id="leakCostOutput3">0</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Disclaimer -->
+            <div
+                class="disclaimerContainer d-flex flex-column justify-content-between mt-5"
+            >
+                <ul class="list-unstyled">
+                    <li class="listItem">
+                        Disclaimer: All water leak activity and usage
+                        representations are based on an estimation and should
+                        not be taken as an accurate figure, but rather as a
+                        guided indicator related to this estimation.
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- SCRIPTS -->
+        <script
+            src="https://code.jquery.com/jquery-3.1.1.min.js"
+            crossorigin="anonymous"
+            type="application/javascript"
+        ></script>
+        <script
+            src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"
+            type="application/javascript"
+        ></script>
+        <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"
+            type="application/javascript"
+        ></script>
+        <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/apexcharts/3.35.3/apexcharts.min.js"
+            type="application/javascript"
+            integrity="sha512-yhdujT21BI/kqk9gcupTh4jMwqLhb+gc6Ytgs4cL0BJjXW+Jo9QyllqLbuluI0cBHqV4XsR7US3lemEGjogQ0w=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"
+        ></script>
+        <script src="index.js"></script>
+    </body>
+</html>

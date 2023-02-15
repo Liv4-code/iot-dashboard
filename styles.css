@@ -1,0 +1,621 @@
+* {
+    font-family: "Fira Sans", sans-serif !important;
+}
+
+body {
+    background-color: rgb(244, 244, 244);
+}
+
+h5 {
+    font-size: 18px;
+    font-weight: bolder;
+}
+
+h6 {
+    font-size: 16px;
+}
+
+p {
+    margin-bottom: 0rem;
+}
+
+ul {
+    margin: 0;
+    padding: 0;
+}
+
+td {
+    width: 50px;
+}
+
+.top-nav-buttons {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    margin: 1%;
+    padding: 2%;
+    background-color: white;
+    border-radius: 10px;
+}
+
+.nav-link {
+    color: black;
+    text-decoration: none;
+}
+
+.nav-link:hover {
+    color: #363636;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.nav-button {
+    padding: 10%;
+    width: 220px;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 5px 5px 0px 1px rgba(145, 41, 140, 0.49);
+    background-color: #91298c;
+    color: white;
+    font-size: 15px;
+}
+
+.nav-button:hover {
+    position: relative;
+    left: 1px;
+    box-shadow: 3px 3px 0px 1px rgba(145, 41, 140, 0.49);
+}
+
+.property-details-container {
+    margin: 1%;
+    background-color: white;
+    border-radius: 10px;
+}
+
+.dashboard-leak {
+    display: flex;
+    justify-content: center;
+}
+
+#companyAddressOutput {
+    max-width: 80%;
+}
+
+#companyLogoOutput {
+    max-width: 100%;
+    margin-left: 6%;
+}
+
+#leak-percentage {
+    align-self: center !important;
+    margin-top: 14%;
+}
+
+#table-container {
+    margin: 1%;
+    background-color: white;
+    border-radius: 10px;
+}
+
+.legend {
+    display: flex;
+    margin: 1%;
+}
+
+.legend-section {
+    display: flex;
+    align-items: center;
+    margin-left: 40px;
+}
+
+.grey .dot {
+    background-color: #e5e4e2;
+}
+
+.yellow .dot {
+    background-color: #e8d12a;
+}
+
+.dot {
+    margin: 10px;
+    height: 20px;
+    border-radius: 50%;
+    width: 20px;
+}
+
+#modeSelectionContainer {
+    margin-right: 3%;
+}
+
+#select-pou-mode-btn {
+    margin-right: 22px;
+    background-color: #363636;
+}
+
+#select-pou-mode-btn:hover {
+    background-color: #616161;
+}
+
+#select-riser-mode-btn {
+    margin-right: 22px;
+    background-color: #363636;
+}
+
+#select-riser-mode-btn:hover {
+    background-color: #616161;
+}
+
+#riserDeviceTable {
+    width: 95%;
+    margin: auto;
+    margin-bottom: 2%;
+}
+
+.riserDot {
+    margin: auto;
+    width: 20px;
+    height: 20px;
+    background-color: rgb(211, 211, 211);
+    border-radius: 50%;
+}
+
+.yellow-alert {
+    background-color: #e8d12a !important;
+}
+
+.wm-dot {
+    margin-right: 4%;
+    width: 20px;
+    height: 20px;
+    background-color: rgb(211, 211, 211);
+    border-radius: 50%;
+}
+
+.wm-installed-details {
+    margin: 3% 1% 0 0;
+    padding: 5%;
+    background-color: rgb(245, 245, 245);
+    border-radius: 10px;
+    box-shadow: inset -15px -15px 15px rgba(225, 225, 225, 0.368),
+        inset 10px 5px 6px rgba(48, 48, 48, 0.12);
+}
+
+.wm-installed {
+    background-color: #00935b;
+}
+
+.wmStats {
+    width: 80%;
+    font-size: 22px;
+    background-color: white;
+    padding: 5%;
+    box-shadow: -1px 2px 5px 1px rgba(108, 108, 108, 0.69);
+    border-radius: 5px;
+}
+
+.unit-details {
+    color: white;
+}
+
+.container {
+    padding: 10px;
+}
+
+.controls-item {
+    display: inline-block;
+}
+
+.wsTableHeader {
+    text-align: center;
+}
+
+.btn {
+    margin: 2px;
+    background-color: #363636 !important;
+    border: none !important;
+    color: white !important;
+}
+
+.btn:hover {
+    background-color: #454545 !important;
+    color: white !important;
+    border: none !important;
+}
+
+.btn:active {
+    background-color: #454545 !important;
+    border: none !important;
+}
+
+.wsTableDot {
+    margin: auto;
+    width: 25px;
+    height: 25px;
+    background-color: rgb(211, 211, 211);
+    border-radius: 50%;
+}
+
+.alert {
+    padding: 0 !important;
+    border-radius: 50% !important;
+    background-color: #e8d12a;
+    margin-bottom: 0 !important;
+}
+
+#loadingPrompt {
+    margin-bottom: 0;
+}
+
+.pouTableRow {
+    text-align: start !important;
+}
+
+.disclaimerContainer {
+    margin-left: 30px !important;
+    padding: 2%;
+    font-size: 14px;
+}
+
+.listItem {
+    font-size: 11px;
+}
+
+#time-picker-container {
+    background-color: white;
+    border-radius: 10px;
+    padding: 2%;
+    margin: 1%;
+}
+
+.time-picker-button {
+    background-color: #363636;
+    width: 90px;
+    color: white;
+    font-size: 13px;
+}
+
+.time-picker-button {
+    color: white;
+    background-color: rgb(201, 201, 201);
+}
+
+.selected {
+    background-color: rgb(201, 201, 201) !important;
+}
+
+.lnk {
+    text-decoration: none;
+    color: white;
+}
+
+.lnk:hover {
+    text-decoration: none;
+    color: rgb(218, 218, 218);
+}
+
+#highUsageChart {
+    background-color: white;
+    border-radius: 10px;
+    padding: 2%;
+    margin: 1%;
+}
+
+#chart-loading-dot {
+    margin: 5%;
+}
+
+#riser-chart {
+    background-color: white;
+    border-radius: 10px;
+    padding: 5%;
+    margin: 1%;
+}
+
+#pou-chart-container {
+    background-color: white;
+    border-radius: 10px;
+    margin: 1%;
+}
+
+#pou-chart {
+    padding: 5%;
+}
+
+#pouCostChartContainer {
+    background-color: white;
+    border-radius: 10px;
+    width: 95%;
+    margin: auto;
+}
+
+#pouCostChart {
+    width: 95%;
+    padding: 2%;
+    margin: auto;
+}
+
+#legendContainer {
+    padding-top: 30px;
+}
+
+.legendItem {
+    display: flex;
+    align-items: center;
+}
+
+#legend-marker-1 {
+    margin: 0 16px 0 16px;
+    width: 15px;
+    height: 15px;
+    border-radius: 15px;
+    background-color: #a6a6a6;
+}
+
+#legend-marker-2 {
+    margin: 0 16px 0 16px;
+    width: 15px;
+    height: 15px;
+    border-radius: 15px;
+    background-color: #e8d12a;
+}
+
+.comparison-card {
+    background-color: white;
+    border-radius: 10px;
+    padding: 7%;
+}
+
+.choose-device-button {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background-color: rgb(185, 185, 185);
+    border: none;
+}
+
+.choose-device-button:hover {
+    background-color: rgb(160, 160, 160);
+}
+
+.device-dropdown {
+    overflow: scroll;
+    max-height: 125px;
+    display: none;
+    margin: 0;
+    background-color: rgb(244, 244, 244);
+    box-shadow: -3px 3px 5px -2px rgba(89, 89, 89, 0.75);
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.card-device-list-item {
+    list-style: none;
+}
+
+.card1-device-list-item {
+    list-style: none;
+}
+
+.card2-device-list-item {
+    list-style: none;
+}
+
+.card3-device-list-item {
+    list-style: none;
+}
+
+.card-device-list-item:hover {
+    color: #363636;
+    cursor: pointer;
+}
+
+.card1-device-list-item:hover {
+    color: #363636;
+    cursor: pointer;
+}
+
+.card2-device-list-item:hover {
+    color: #363636;
+    cursor: pointer;
+}
+
+.card3-device-list-item:hover {
+    color: #363636;
+    cursor: pointer;
+}
+
+.info-container {
+    display: flex;
+}
+
+.info-block {
+    padding: 10px;
+    border-radius: 7px;
+    width: 90%;
+    background-color: rgb(39, 39, 39);
+    color: white;
+}
+
+.info-heading {
+    font-size: 13px;
+}
+
+.disclaimerContainer {
+    margin-left: 30px !important;
+    padding: 2%;
+    font-size: 14px;
+}
+
+.listItem {
+    font-size: 11px;
+}
+
+#device-info-table-container {
+    width: 95%;
+    margin: 20px auto !important;
+    padding: 1%;
+    border-radius: 10px;
+    background-color: white;
+}
+
+#device-info-table {
+    border-width: 2px !important;
+    border-style: solid !important;
+    border-color: #c3c3c3 !important;
+}
+
+.lnk {
+    text-decoration: none;
+    color: white;
+}
+
+.lnk:hover {
+    text-decoration: none;
+    color: rgb(218, 218, 218);
+}
+
+.progress {
+    width: 75% !important;
+    height: 40px !important;
+}
+
+.active-percentage {
+    background-color: #00935b !important;
+}
+
+.continuous-percentage {
+    background-color: rgba(145, 41, 140) !important;
+}
+
+#deviceDetailedViewChart {
+    width: 95%;
+    background-color: white;
+    border-radius: 10px;
+    padding: 2%;
+    margin: 1% auto !important;
+}
+
+#deviceCostUsageContainer {
+    width: 95%;
+    margin: 1% auto !important;
+}
+
+#deviceDetailedViewCostChart {
+    width: 100%;
+    background-color: white;
+    border-radius: 10px;
+    padding: 2%;
+    margin: 0 1% 0 0 !important;
+}
+
+#deviceCostPieChart {
+    width: 25%;
+    background-color: white;
+    border-radius: 10px;
+    padding-top: 3%;
+}
+
+.disclaimerContainer {
+    margin-left: 30px !important;
+    font-size: 14px;
+}
+
+.listItem {
+    font-size: 11px;
+}
+
+/* MEDIA QUERIES */
+
+@media only screen and (max-width: 826px) {
+    .top-nav-buttons {
+        flex-direction: column;
+    }
+
+    .nav-link {
+        width: 100%;
+        padding: 0;
+    }
+
+    .nav-button {
+        width: 100%;
+        margin: 1% 0;
+        padding: 5%;
+        font-size: 20px;
+    }
+
+    #companyLogoOutput {
+        max-width: 140%;
+        margin: 0;
+    }
+}
+
+@media (max-width: 630px) {
+    * {
+        background: none;
+    }
+
+    body {
+        background: #ffffff;
+    }
+
+    .container {
+        margin: 0;
+    }
+
+    .wm-installed-details {
+        margin-bottom: 12%;
+        padding: 5%;
+        background-color: rgb(245, 245, 245);
+        border-radius: 10px;
+        box-shadow: inset -15px -15px 15px rgba(225, 225, 225, 0.368),
+            inset 10px 5px 6px rgba(48, 48, 48, 0.12);
+    }
+
+    .legend-section {
+        margin-left: 5px;
+    }
+
+    .comparison-card {
+        border: 1px solid black;
+    }
+
+    #companyLogoOutput {
+        max-width: 100%;
+    }
+
+    #select-pou-mode-btn {
+        margin-right: 0;
+        font-size: 0.8rem;
+    }
+
+    #select-riser-mode-btn {
+        margin-right: 0;
+        font-size: 0.8rem;
+    }
+
+    #mode-selection-container {
+        margin: 0;
+        font-size: 6px;
+    }
+
+    #time-picker-container {
+        margin: 12% 0 5% 0;
+    }
+
+    #time-picker-buttons {
+        display: flex;
+        justify-content: center;
+    }
+
+    #time-picker-button {
+        width: 120%;
+    }
+
+    #riser-chart {
+        padding: 0;
+    }
+
+    #pou-chart {
+        padding: 1%;
+    }
+}
