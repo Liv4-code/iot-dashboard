@@ -145,7 +145,7 @@ td {
     background-color: #616161;
 }
 
-#riserDeviceTable {
+#riser-device-table {
     width: 95%;
     margin: auto;
     margin-bottom: 2%;
@@ -264,7 +264,7 @@ td {
     background-color: white;
     border-radius: 10px;
     padding: 2%;
-    margin: 1%;
+    margin: 4% 1% 1% 1%;
 }
 
 .time-picker-button {
@@ -318,6 +318,7 @@ td {
 }
 
 #pou-chart {
+    margin-bottom: 4%;
     padding: 5%;
 }
 

@@ -1,5 +1,3 @@
-// OVERVIEW DASHBOARD
-
 const dashboardData = {
     organizationID: "622a0a5d38a5c00c19e4dd03",
     deviceID: "622a0a5d38a5c00c19e4dd03",
@@ -10,7 +8,9 @@ const dashboardData = {
     deviceList: [],
 };
 
-// Reference Outputs:
+// Referencing Outputs
+
+// Building overview outputs
 const organizationLogoOutput = document.querySelector("#companyLogoOutput");
 const organizationNameOutput = document.querySelector("#companyNameOutput");
 const organizationAddressOutput = document.querySelector(
@@ -26,8 +26,29 @@ const wmWaterConsumptionOutput = document.querySelector(
 );
 const wmWaterCostOutput = document.querySelector("#wmWaterCostOutput");
 const wmLeakCostOutput = document.querySelector("#wmLeakCostOutput");
+const loadingDot = document.querySelector("#loadingDot");
+const chartLoadingDot = document.querySelector("#chart-loading-dot");
+// Device tables
+const riserDeviceTable = document.querySelector("#riser-device-table");
+const riserDeviceTableOutput = document.querySelector(
+    "#riser-device-table-output"
+);
+const pouDeviceTable = document.querySelector("#pou-device-table");
+const selectPOUModeButton = document.querySelector("#select-pou-mode-btn");
+const selectRiserModeButton = document.querySelector("#select-riser-mode-btn");
+// Reference to comparison cards
+const compCardsLoadingDot = document.querySelector("#compCardsLoadingDot");
+const card1DropdownArrow = document.querySelector(".card1DropdownArrow");
+const card1DropdownList = document.querySelector(".card1DropdownList");
+const card1DeviceList = document.querySelector(".card1DeviceList");
+const card2DropdownArrow = document.querySelector(".card2DropdownArrow");
+const card2DropdownList = document.querySelector(".card2DropdownList");
+const card2DeviceList = document.querySelector(".card2DeviceList");
+const card3DropdownArrow = document.querySelector(".card3DropdownArrow");
+const card3DropdownList = document.querySelector(".card3DropdownList");
+const card3DeviceList = document.querySelector(".card3DeviceList");
 
-// Get Organization Details:
+// Get Organization Details
 async function getOrganization(organizationKey) {
     try {
         const res = await fetch(
@@ -48,24 +69,6 @@ async function getOrganization(organizationKey) {
 }
 
 getOrganization(dashboardData.organizationID);
-
-async function getDeviceLeak(deviceLabel) {
-    try {
-        const res = await fetch(
-            `https://cs.api.ubidots.com/api/v1.6/devices/${deviceLabel}/leak_state_bit/values`,
-            {
-                headers: {
-                    "X-Auth-Token": "BBFF-Ikwfez2MES9Kc2Pzp7YsyaCRbjFr30",
-                },
-            }
-        );
-
-        const data = await res.json();
-        console.log(data);
-    } catch (e) {
-        console.log(e);
-    }
-}
 
 var leakPercentageOptions = {
     colors: ["#E8D12A"],
@@ -100,30 +103,14 @@ var leakRadialChart = new ApexCharts(
 );
 leakRadialChart.render();
 
-// DEVICE DATA
+// Device object set-up for table hierarchy
 const devices = {
     id: [],
     labels: [],
     locations: [],
 };
 
-// Reference To Table Elements
-const loadingDot = document.querySelector("#loadingDot");
-const chartLoadingDot = document.querySelector("#chart-loading-dot");
-const riserDeviceTable = document.querySelector("#riserDeviceTable");
-const riserDeviceTableOutput = document.querySelector(
-    "#riserDeviceTableOutput"
-);
-const pouDeviceTable = document.querySelector("#pou-device-table");
-const accordion = document.querySelector(".accordion");
-const accordionOutput = document.querySelector("#accordionOutput");
-
-// Hierarchy Dropdown On Click
-$(document).ready(function () {
-    $(".ui.accordion").accordion();
-});
-
-// CREATING HIERARCHY TREE
+// Creating object classes for tabular hierarchy
 class Units {
     constructor(key, value = key, parent, children) {
         this.key = key;
@@ -216,7 +203,7 @@ const getOrganizationDevices = async (organizationKey) => {
 
         const data = await res.json();
 
-        // Check if any devices are assigned to the Water Monkey device type
+        // Check if any devices are assigned to the water monkey device type
         const waterMonkeyInstalled = data.results.reduce(
             (initialDevice, currentDevice) => {
                 if (
@@ -228,7 +215,8 @@ const getOrganizationDevices = async (organizationKey) => {
                 }
             }
         );
-        // Setting Water Monkey Installed Data
+
+        // Setting water monkey installed data
         if (waterMonkeyInstalled) {
             wmInstalled.classList.add("wm-installed");
             getWMData("351516172864902");
@@ -238,8 +226,6 @@ const getOrganizationDevices = async (organizationKey) => {
         const genericDevice = data.results.filter((result) => {
             if (result.properties.total_units) {
                 return result;
-            } else {
-                console.log("No Generic Device Found");
             }
         });
 
@@ -250,7 +236,7 @@ const getOrganizationDevices = async (organizationKey) => {
             genericDevice[0].properties.building_type;
         floorsOutput.innerText = genericDevice[0].properties.floors;
         organizationAddressOutput.innerText =
-            "14 Overbury St Cnr, Swartkoppies Street, Alberton, 1448";
+            "14 Overbury St Cnr, Swartkoppies Street, Johannesburg, 1448";
 
         // Filter out Riser devices from organizations devices
         const riserDevices = data.results.filter((result) => {
@@ -271,14 +257,6 @@ const getOrganizationDevices = async (organizationKey) => {
         const riserDevicesVariables = await Promise.all(
             riserDeviceVariableDataPromises
         );
-
-        // Filter out POU devices from organizations devices
-        // const pouDevices = data.results.filter((result) => {
-        //   if (result.properties.location === 'Floor') {
-        //     pouDeviceTable.classList.remove('d-none')
-        //     return result
-        //   }
-        // })
 
         riserDevices.forEach((result, index) => {
             // Filtering out variables relevant to table
@@ -318,7 +296,7 @@ const getOrganizationDevices = async (organizationKey) => {
                 }
             });
 
-            // Compiling device object from results
+            // Compiling device instances from results
             devices.id.push(result.id);
             devices.labels.push(result.label);
             devices.locations.push(
@@ -358,7 +336,6 @@ const getOrganizationDevices = async (organizationKey) => {
       <td><div class="riserDot offlineAlert"></div></td>
     </tr>`;
         });
-        // Reference array of each column of alert elements
 
         const highUsageAlertOutputs =
             document.querySelectorAll(".highUsageAlert");
@@ -370,53 +347,40 @@ const getOrganizationDevices = async (organizationKey) => {
         devices.locations.forEach((location, index) => {
             if (location.highUsage === 1) {
                 highUsageAlertOutputs[index].classList.add("yellow-alert");
-                // highUsageAlertOutputs[index].classList.remove("greenAlert");
             } else if (location.highUsage === 0) {
-                // highUsageAlertOutputs[index].classList.add("greenAlert");
                 highUsageAlertOutputs[index].classList.remove("yellow-alert");
             } else if (!location.highUsage) {
                 highUsageAlertOutputs[index].classList.remove("yellow-alert");
-                // highUsageAlertOutputs[index].classList.remove("greenAlert");
             }
             if (location.leak === 1) {
                 leakAlertOutputs[index].classList.add("yellow-alert");
-                // leakAlertOutputs[index].classList.remove("greenAlert");
             } else if (location.leak === 0) {
                 // leakAlertOutputs[index].classList.add("greenAlert");
                 leakAlertOutputs[index].classList.remove("yellow-alert");
             } else {
                 leakAlertOutputs[index].classList.remove("yellow-alert");
-                // leakAlertOutputs[index].classList.remove("greenAlert");
             }
             if (location.signal === 1) {
                 signalAlertOutputs[index].classList.add("yellow-alert");
                 signalAlertOutputs[index].classList.remove("greenAlert");
             } else if (location.signal === 0) {
-                // signalAlertOutputs[index].classList.add("greenAlert");
                 signalAlertOutputs[index].classList.remove("yellow-alert");
             } else {
                 signalAlertOutputs[index].classList.remove("yellow-alert");
-                // signalAlertOutputs[index].classList.remove("greenAlert");
             }
             if (location.battery === 1) {
                 batteryAlertOutputs[index].classList.add("yellow-alert");
-                // batteryAlertOutputs[index].classList.remove("greenAlert");
             } else if (location.battery === 0) {
-                // batteryAlertOutputs[index].classList.add("greenAlert");
                 batteryAlertOutputs[index].classList.remove("yellow-alert");
             } else {
                 batteryAlertOutputs[index].classList.remove("yellow-alert");
-                // batteryAlertOutputs[index].classList.remove("greenAlert");
             }
             if (location.offline === 1) {
                 offlineAlertOutputs[index].classList.add("yellow-alert");
-                // offlineAlertOutputs[index].classList.remove("greenAlert");
             } else if (location.offline === 0) {
-                // offlineAlertOutputs[index].classList.add("greenAlert");
                 offlineAlertOutputs[index].classList.remove("yellow-alert");
             } else {
                 offlineAlertOutputs[index].classList.remove("yellow-alert");
-                // offlineAlertOutputs[index].classList.remove("greenAlert");
             }
         });
     } catch (e) {
@@ -426,8 +390,7 @@ const getOrganizationDevices = async (organizationKey) => {
 
 getOrganizationDevices(dashboardData.organizationID);
 
-// ---------------------------------------------------------------------------------------------------------------------------------------------
-// POU Table
+// POU table
 
 let tableData = [];
 let deviceNames = [];
@@ -635,7 +598,6 @@ const getAllDevices = async () => {
                 });
 
             // Run sorting function for each batch of devices
-
             let sortedDevices = onlineDevices.sort(function (a, b) {
                 if (a.leak === 1 && b.leak === 1) {
                     if (a.leakDate < b.leakDate) {
@@ -691,8 +653,7 @@ const getAllDevices = async () => {
 
 getAllDevices();
 
-// Loop through array & access each value
-// then create table rows & append to table
+// Loop through array & access each value then create table rows & append to table
 
 let state = {
     querySet: tableData,
@@ -806,9 +767,6 @@ function buildTable() {
 
 // Select different ODEUS device mode tables:
 
-const selectPOUModeButton = document.querySelector("#select-pou-mode-btn");
-const selectRiserModeButton = document.querySelector("#select-riser-mode-btn");
-
 selectPOUModeButton.addEventListener("click", () => {
     riserDeviceTable.classList.add("d-none");
     pouDeviceTable.classList.remove("d-none");
@@ -823,8 +781,7 @@ selectRiserModeButton.addEventListener("click", () => {
     selectPOUModeButton.classList.remove("d-none");
 });
 
-// BUILDING ANALYSIS DASHBOARD
-
+// Reference to time picker buttons
 const dayButton = document.querySelector("#dayButton");
 const weekButton = document.querySelector("#weekButton");
 const monthButton = document.querySelector("#monthButton");
@@ -984,8 +941,6 @@ pouChart.render();
 
 // Setting up API requests
 
-// Riser Mode
-
 // Getting All Devices In Organization
 const getOdeusOrganizationDevices = async (organizationKey) => {
     try {
@@ -1024,7 +979,7 @@ const getDeviceVariableData = async (deviceID, variableLabel) => {
     }
 };
 
-// Get Riser Variable Data
+// Get riser variable data
 const getRiserAggregatedData = async (
     variableIds,
     period,
@@ -1057,7 +1012,7 @@ const getRiserAggregatedData = async (
     }
 };
 
-// Get POU Variable Data
+// Get POU variable data
 const getPOUAggregatedData = async (variableIds, startTimestamp) => {
     try {
         const response = await fetch(
@@ -1085,7 +1040,7 @@ const getPOUAggregatedData = async (variableIds, startTimestamp) => {
 };
 
 const updateChart = async (timePicked, startingTimestamp, endingTimestamp) => {
-    // UPDATING RISER CHART ----------------------------------------
+    // Updating riser chart
 
     // Getting riser devices & variables id's from session storage
     const storedRiserDeviceNames = sessionStorage.getItem("riserDeviceNames");
@@ -1141,7 +1096,7 @@ const updateChart = async (timePicked, startingTimestamp, endingTimestamp) => {
         }
     );
 
-    // Update Riser Chart
+    // Re-render riser chart
     riserChart.updateOptions({
         series: riserChartSeriesData,
         xaxis: {
@@ -1156,7 +1111,7 @@ const updateChart = async (timePicked, startingTimestamp, endingTimestamp) => {
         },
     });
 
-    // UPDATING POU CHART ----------------------------------------
+    // Updating POU chart
 
     // Getting pou devices & variables id's from session storage
     const storedPOUDeviceNames = sessionStorage.getItem("pouDeviceNames");
@@ -1165,7 +1120,7 @@ const updateChart = async (timePicked, startingTimestamp, endingTimestamp) => {
         sessionStorage.getItem("pouVariableIDs");
     const pouChartDevicesVariableIDs = storedPOUDevicesVariableIDs.split(",");
 
-    // Request for POU Min Delta data
+    // Request for POU Min delta data
     const pouMinDeltaData = await getPOUAggregatedData(
         pouChartDevicesVariableIDs,
         startingTimestamp
@@ -1177,7 +1132,7 @@ const updateChart = async (timePicked, startingTimestamp, endingTimestamp) => {
         pouChartSeriesData.push(result.value.toFixed(2));
     });
 
-    // Update Chart
+    // Re-render POU chart
     pouChart.updateOptions({
         series: [
             {
@@ -1219,7 +1174,7 @@ const generateCharts = async () => {
         const pouLeakCostVariableIDPromises = [];
 
         odeusDevices.forEach((device) => {
-            // Filter out Riser Mode devices
+            // Filter out riser mode devices
             if (device.name.includes("Riser")) {
                 riserDeviceNames.push(device.name);
                 riserVariableIDPromises.push(
@@ -1232,7 +1187,7 @@ const generateCharts = async () => {
                     getDeviceVariableData(device.id, "leak_cost")
                 );
             } else if (device.name.includes("Floor")) {
-                // Filter out POU Mode devices
+                // Filter out POU mode devices
                 pouDeviceNames.push(device.name);
                 pouVariableIDPromises.push(
                     getDeviceVariableData(device.id, "dummy_min_delta_1h")
@@ -1246,7 +1201,7 @@ const generateCharts = async () => {
             }
         });
 
-        // Request for riser variable ids
+        // Request for riser variable id's
         const riserVariableIDs = await Promise.all(riserVariableIDPromises);
         const riserTotalCostVariableIDs = await Promise.all(
             riserTotalCostVariableIDPromises
@@ -1254,7 +1209,7 @@ const generateCharts = async () => {
         const riserLeakCostVariableIDs = await Promise.all(
             riserLeakCostVariableIDPromises
         );
-        // Request for POU variable ids
+        // Request for POU variable id's
         const pouDevicesVariableIDs = await Promise.all(pouVariableIDPromises);
         const pouTotalCostDevicesVariableIDs = await Promise.all(
             pouTotalCostVariableIDPromises
@@ -1263,7 +1218,7 @@ const generateCharts = async () => {
             pouLeakCostVariableIDPromises
         );
 
-        // Store Riser & POU Devices & variable ID's to session storage
+        // Store riser & POU devices & variable id's to session storage
         sessionStorage.setItem("riserDeviceNames", riserDeviceNames);
         sessionStorage.setItem("riserVariableIDs", riserVariableIDs);
         sessionStorage.setItem(
@@ -1277,7 +1232,7 @@ const generateCharts = async () => {
         sessionStorage.setItem("pouDeviceNames", pouDeviceNames);
         sessionStorage.setItem("pouVariableIDs", pouDevicesVariableIDs);
 
-        // Request for Riser Min Delta data
+        // Request for riser min delta data
         const oneWeek = dashboardData.oneDay * 6;
         let startDate = 1670491010000 - oneWeek;
         const riserMinDeltaData = await getRiserAggregatedData(
@@ -1287,7 +1242,7 @@ const generateCharts = async () => {
             1670491010000
         );
 
-        // Setting dates for Riser Chart x-axis
+        // Setting dates for riser chart x-axis
         riserMinDeltaData.results[0].reverse().forEach((result) => {
             // Converting timestamp to datetime format
             const dateFromTimestamp = new Date(result[0]);
@@ -1313,7 +1268,7 @@ const generateCharts = async () => {
             }
         );
 
-        // Update Riser Chart
+        // Render riser chart
         riserChart.updateOptions({
             series: riserChartSeriesData,
             xaxis: {
@@ -1332,28 +1287,20 @@ const generateCharts = async () => {
             },
         });
 
-        // Request for POU Min Delta data
+        // Request for POU min delta data
         const pouMinDeltaData = await getPOUAggregatedData(
             pouDevicesVariableIDs,
             startDate
         );
-        const pouTotalCostMinDeltaData = await getPOUAggregatedData(
-            pouTotalCostDevicesVariableIDs,
-            startDate
-        );
-        const pouLeakCostMinDeltaData = await getPOUAggregatedData(
-            pouLeakCostDevicesVariableIDs,
-            startDate
-        );
 
-        // Data for populating POU Chart
+        // Data for populating POU chart
         let pouChartSeriesData = [];
         pouMinDeltaData.results.forEach((result) => {
             chartLoadingDot.classList.add("d-none");
             pouChartSeriesData.push(result.value.toFixed(2));
         });
 
-        // Re-Render POU Chart
+        // Render POU chart
         pouChart.updateOptions({
             series: [
                 {
@@ -1369,7 +1316,7 @@ const generateCharts = async () => {
 
 generateCharts();
 
-// Update Charts According To Timeframe Selected
+// Update charts according to timeframe selected
 dayButton.addEventListener("click", () => {
     // Add loading dot
     chartLoadingDot.classList.remove("d-none");
@@ -1428,21 +1375,7 @@ yearButton.addEventListener("click", () => {
     updateChart("1M", startDate, 1670491010000);
 });
 
-// -----------------------------------------------------------------------------------------------------------
-
-// COMPARISON CARDS
-
-// Reference to comparison cards
-const compCardsLoadingDot = document.querySelector("#compCardsLoadingDot");
-const card1DropdownArrow = document.querySelector(".card1DropdownArrow");
-const card1DropdownList = document.querySelector(".card1DropdownList");
-const card1DeviceList = document.querySelector(".card1DeviceList");
-const card2DropdownArrow = document.querySelector(".card2DropdownArrow");
-const card2DropdownList = document.querySelector(".card2DropdownList");
-const card2DeviceList = document.querySelector(".card2DeviceList");
-const card3DropdownArrow = document.querySelector(".card3DropdownArrow");
-const card3DropdownList = document.querySelector(".card3DropdownList");
-const card3DeviceList = document.querySelector(".card3DeviceList");
+// Comparison cards
 
 // Setting up API requests
 
@@ -1498,7 +1431,7 @@ const getDeviceList = async (organizationID, dropdownList, deviceList) => {
         });
         dropdownList.style.display = "block";
 
-        // Get Device Variable Data when device list item is clicked
+        // Get device variable data when device list item is clicked
         const deviceListItems = document.querySelectorAll(
             ".card-device-list-item"
         );
