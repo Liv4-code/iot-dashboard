@@ -11,22 +11,22 @@ const dashboardData = {
 // Referencing Outputs
 
 // Building overview outputs
-const organizationLogoOutput = document.querySelector("#companyLogoOutput");
-const organizationNameOutput = document.querySelector("#companyNameOutput");
+const organizationLogoOutput = document.querySelector("#company-logo-output");
+const organizationNameOutput = document.querySelector("#company-name-output");
 const organizationAddressOutput = document.querySelector(
-    "#companyAddressOutput"
+    "#company-address-output"
 );
-const buildingUnitsOutput = document.querySelector("#unitsOutput");
-const meterTypeOutput = document.querySelector("#meterTypeOutput");
-const buildingTypeOutput = document.querySelector("#buildingType");
+const buildingUnitsOutput = document.querySelector("#units-output");
+const meterTypeOutput = document.querySelector("#meter-type-output");
+const buildingTypeOutput = document.querySelector("#building-type");
 const floorsOutput = document.querySelector("#floors");
 const wmInstalled = document.querySelector("#wm-check");
 const wmWaterConsumptionOutput = document.querySelector(
-    "#wmWaterConsumptionOutput"
+    "#wm-water-consumption-output"
 );
-const wmWaterCostOutput = document.querySelector("#wmWaterCostOutput");
-const wmLeakCostOutput = document.querySelector("#wmLeakCostOutput");
-const loadingDot = document.querySelector("#loadingDot");
+const wmWaterCostOutput = document.querySelector("#wm-water-cost-output");
+const wmLeakCostOutput = document.querySelector("#wm-leak-cost-output");
+const loadingDot = document.querySelector("#loading-dot");
 const chartLoadingDot = document.querySelector("#chart-loading-dot");
 // Device tables
 const riserDeviceTable = document.querySelector("#riser-device-table");
@@ -37,16 +37,16 @@ const pouDeviceTable = document.querySelector("#pou-device-table");
 const selectPOUModeButton = document.querySelector("#select-pou-mode-btn");
 const selectRiserModeButton = document.querySelector("#select-riser-mode-btn");
 // Reference to comparison cards
-const compCardsLoadingDot = document.querySelector("#compCardsLoadingDot");
-const card1DropdownArrow = document.querySelector(".card1DropdownArrow");
-const card1DropdownList = document.querySelector(".card1DropdownList");
-const card1DeviceList = document.querySelector(".card1DeviceList");
-const card2DropdownArrow = document.querySelector(".card2DropdownArrow");
-const card2DropdownList = document.querySelector(".card2DropdownList");
-const card2DeviceList = document.querySelector(".card2DeviceList");
-const card3DropdownArrow = document.querySelector(".card3DropdownArrow");
-const card3DropdownList = document.querySelector(".card3DropdownList");
-const card3DeviceList = document.querySelector(".card3DeviceList");
+const compCardsLoadingDot = document.querySelector("#comp-cards-loading-dot");
+const card1DropdownArrow = document.querySelector(".card-1-dropdown-arrow");
+const card1DropdownList = document.querySelector(".card-1-dropdown-list");
+const card1DeviceList = document.querySelector(".card-1-device-list");
+const card2DropdownArrow = document.querySelector(".card-2-dropdown-arrow");
+const card2DropdownList = document.querySelector(".card-2-dropdown-list");
+const card2DeviceList = document.querySelector(".card-2-device-list");
+const card3DropdownArrow = document.querySelector(".card-3-dropdown-arrow");
+const card3DropdownList = document.querySelector(".card-3-dropdown-list");
+const card3DeviceList = document.querySelector(".card-3-device-list");
 
 // Get Organization Details
 async function getOrganization(organizationKey) {
@@ -329,11 +329,11 @@ const getOrganizationDevices = async (organizationKey) => {
             riserDeviceTableOutput.innerHTML += `
       <tr>
       <td>${location.key + " " + location.value}</td>
-      <td><div class="riserDot highUsageAlert"></div></td>
-      <td><div class="riserDot leakAlert"></div></td>
-      <td><div class="riserDot signalAlert"></div></td>
-      <td><div class="riserDot batteryAlert"></div></td>
-      <td><div class="riserDot offlineAlert"></div></td>
+      <td><div class="riser-dot highUsageAlert"></div></td>
+      <td><div class="riser-dot leakAlert"></div></td>
+      <td><div class="riser-dot signalAlert"></div></td>
+      <td><div class="riser-dot batteryAlert"></div></td>
+      <td><div class="riser-dot offlineAlert"></div></td>
     </tr>`;
         });
 
@@ -484,7 +484,6 @@ const getAllDevices = async () => {
             i
         );
 
-        console.log("pou devices", organizationDevices);
         let allDeviceOfflinePromises = [];
         let allLeakDetectedPromises = [];
         let allBattPercentPromises = [];
@@ -521,7 +520,6 @@ const getAllDevices = async () => {
                     deviceIDs.push(device.id);
                 });
 
-            console.log(deviceNames);
             const allDeviceOfflineData = await Promise.all(
                 allDeviceOfflinePromises
             );
@@ -730,20 +728,18 @@ function buildTable() {
     let myList = data.querySet;
 
     for (let i in myList) {
-        let row = `<tr class="pouTableRow">
+        let row = `<tr class="pou-table-row">
                   <td>${myList[i].name}</td>
-                  <td><div class="wsTableDot leakDot"></div></td>
-                  <td><div class="wsTableDot battDot"></div></td>
-                  <td><div class="wsTableDot offlineDot"></div></td>`;
+                  <td><div class="ws-table-dot leakDot"></div></td>
+                  <td><div class="ws-table-dot battDot"></div></td>
+                  <td><div class="ws-table-dot offlineDot"></div></td>`;
         table.append(row);
     }
 
-    let firstPageRows = document.querySelectorAll(".pouTableRow");
+    let firstPageRows = document.querySelectorAll(".pou-table-row");
     let leakAlertDots = document.querySelectorAll(".leakDot");
     let battAlertDots = document.querySelectorAll(".battDot");
     let offlineAlertDots = document.querySelectorAll(".offlineDot");
-
-    // console.log(state.currentPageDevices)
 
     state.currentPageDevices.forEach((device, index) => {
         if (device.leak === 1 && device.battPercent <= 20) {
@@ -1447,10 +1443,6 @@ const getDeviceList = async (organizationID, dropdownList, deviceList) => {
                 chosenDevice.innerHTML = e.target.innerText;
 
                 // Setting outputs with fetched data
-                console.log(
-                    e.target.parentNode.parentNode.parentNode.lastElementChild
-                        .children[1].children[0].children[1]
-                );
                 let totalVolumeOutput =
                     e.target.parentNode.parentNode.parentNode.lastElementChild
                         .children[0].children[0].children[1];
@@ -1509,17 +1501,17 @@ const getDeviceList = async (organizationID, dropdownList, deviceList) => {
 };
 
 card1DropdownArrow.addEventListener("click", () => {
-    let chosenDevice = document.querySelector("#card1ChosenDevice");
-    let totalVolumeOutput = document.querySelector("#totalVolumeOutput1");
-    let totalCostOutput = document.querySelector("#totalCostOutput1");
+    let chosenDevice = document.querySelector("#card-1-chosen-device");
+    let totalVolumeOutput = document.querySelector("#total-volume-output-1");
+    let totalCostOutput = document.querySelector("#total-cost-output-1");
     let consumptionVolumeOutput = document.querySelector(
-        "#consumptionVolumeOutput1"
+        "#consumption-volume-output-1"
     );
     let consumptionCostOutput = document.querySelector(
-        "#consumptionCostOutput1"
+        "#consumption-cost-output-1"
     );
-    let leakVolumeOutput = document.querySelector("#leakVolumeOutput1");
-    let leakCostOutput = document.querySelector("#leakCostOutput1");
+    let leakVolumeOutput = document.querySelector("#leak-volume-output-1");
+    let leakCostOutput = document.querySelector("#leak-cost-output-1");
 
     if (dashboardData.deviceList.length) {
         if (!card1DeviceList.children.length) {
@@ -1590,17 +1582,17 @@ card1DropdownArrow.addEventListener("click", () => {
 });
 
 card2DropdownArrow.addEventListener("click", () => {
-    let chosenDevice = document.querySelector("#card2ChosenDevice");
-    let totalVolumeOutput = document.querySelector("#totalVolumeOutput2");
-    let totalCostOutput = document.querySelector("#totalCostOutput2");
+    let chosenDevice = document.querySelector("#card-2-chosen-device");
+    let totalVolumeOutput = document.querySelector("#total-volume-output-2");
+    let totalCostOutput = document.querySelector("#total-cost-output-2");
     let consumptionVolumeOutput = document.querySelector(
-        "#consumptionVolumeOutput2"
+        "#consumption-volume-output-2"
     );
     let consumptionCostOutput = document.querySelector(
-        "#consumptionCostOutput2"
+        "#consumption-cost-output-2"
     );
-    let leakVolumeOutput = document.querySelector("#leakVolumeOutput2");
-    let leakCostOutput = document.querySelector("#leakCostOutput2");
+    let leakVolumeOutput = document.querySelector("#leak-volume-output-2");
+    let leakCostOutput = document.querySelector("#leak-cost-output-2");
 
     if (dashboardData.deviceList.length) {
         if (!card2DeviceList.children.length) {
@@ -1668,17 +1660,17 @@ card2DropdownArrow.addEventListener("click", () => {
 });
 
 card3DropdownArrow.addEventListener("click", () => {
-    let chosenDevice = document.querySelector("#card3ChosenDevice");
-    let totalVolumeOutput = document.querySelector("#totalVolumeOutput3");
-    let totalCostOutput = document.querySelector("#totalCostOutput3");
+    let chosenDevice = document.querySelector("#card-3-chosen-device");
+    let totalVolumeOutput = document.querySelector("#total-volume-output-3");
+    let totalCostOutput = document.querySelector("#total-cost-output-3");
     let consumptionVolumeOutput = document.querySelector(
-        "#consumptionVolumeOutput3"
+        "#consumption-volume-output-3"
     );
     let consumptionCostOutput = document.querySelector(
-        "#consumptionCostOutput3"
+        "#consumption-cost-output-3"
     );
-    let leakVolumeOutput = document.querySelector("#leakVolumeOutput3");
-    let leakCostOutput = document.querySelector("#leakCostOutput3");
+    let leakVolumeOutput = document.querySelector("#leak-volume-output-3");
+    let leakCostOutput = document.querySelector("#leak-cost-output-3");
 
     if (dashboardData.deviceList.length) {
         if (!card3DeviceList.children.length) {

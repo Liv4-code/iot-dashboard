@@ -21,13 +21,13 @@
     </head>
     <body>
         <div class="top-nav-buttons">
-            <a class="nav-link" href="#deviceOverviewTable"
+            <a class="nav-link" href="#device-overview-table"
                 ><button class="nav-button">Device Overview Table</button></a
             >
-            <a class="nav-link" href="#chartAnalysis"
+            <a class="nav-link" href="#chart-analysis"
                 ><button class="nav-button">Chart Analysis</button></a
             >
-            <a class="nav-link" href="#compareDevices"
+            <a class="nav-link" href="#compare-devices"
                 ><button class="nav-button">Compare Devices</button></a
             >
         </div>
@@ -38,19 +38,22 @@
                 <div
                     class="property-images col-sm-3 d-flex flex-column justify-content-center align-items-center"
                 >
-                    <img id="companyLogoOutput" src="#" alt="Company Logo" />
+                    <img id="company-logo-output" src="#" alt="Company Logo" />
                 </div>
                 <div class="property-details col-sm-3 d-flex flex-column p-0">
                     <div
                         class="details my-5 d-flex align-items-center justify-content-center"
                     >
                         <div
-                            id="organizationDetails"
+                            id="organization-details"
                             class="my-5 d-flex flex-column align-items-center"
                         >
-                            <h5 id="companyNameOutput" class="text-center"></h5>
+                            <h5
+                                id="company-name-output"
+                                class="text-center"
+                            ></h5>
                             <h6
-                                id="companyAddressOutput"
+                                id="company-address-output"
                                 class="text-center"
                             ></h6>
                         </div>
@@ -60,7 +63,7 @@
                             <div
                                 class="unit-number property-info col-sm d-flex flex-column align-items-center m-3 p-0"
                             >
-                                <p id="unitsOutput" class="m-0"></p>
+                                <p id="units-output" class="m-0"></p>
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
                                     aria-hidden="true"
@@ -80,7 +83,7 @@
                             <div
                                 class="meter-type property-info col-sm d-flex flex-column align-items-center m-3 p-0"
                             >
-                                <p id="meterTypeOutput" class="m-0"></p>
+                                <p id="meter-type-output" class="m-0"></p>
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
                                     aria-hidden="true"
@@ -117,7 +120,7 @@
                                         d="M17 11V5c0-1.1-.9-2-2-2H9c-1.1 0-2 .9-2 2v2H5c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h5c.55 0 1-.45 1-1v-3h2v3c0 .55.45 1 1 1h5c1.1 0 2-.9 2-2v-6c0-1.1-.9-2-2-2h-2zM7 19H5v-2h2v2zm0-4H5v-2h2v2zm0-4H5V9h2v2zm4 4H9v-2h2v2zm0-4H9V9h2v2zm0-4H9V5h2v2zm4 8h-2v-2h2v2zm0-4h-2V9h2v2zm0-4h-2V5h2v2zm4 12h-2v-2h2v2zm0-4h-2v-2h2v2z"
                                     />
                                 </svg>
-                                <p id="buildingType"></p>
+                                <p id="building-type"></p>
                             </div>
                             <div
                                 class="alert-total property-info col-sm d-flex flex-column align-items-center m-3 p-0"
@@ -167,20 +170,20 @@
                             </div>
                             <h5>Consumption Data Last 30 Days</h5>
                             <div
-                                class="wmStats total-water-consumption text-center mb-4"
+                                class="wm-stats total-water-consumption text-center mb-4"
                             >
                                 <h6>Total Water Consumption</h6>
-                                <p id="wmWaterConsumptionOutput"></p>
+                                <p id="wm-water-consumption-output"></p>
                             </div>
                             <div
-                                class="wmStats total-water-cost text-center mb-4"
+                                class="wm-stats total-water-cost text-center mb-4"
                             >
                                 <h6>Total Water Cost</h6>
-                                <p id="wmWaterCostOutput"></p>
+                                <p id="wm-water-cost-output"></p>
                             </div>
-                            <div class="wmStats leak-cost text-center">
+                            <div class="wm-stats leak-cost text-center">
                                 <h6>Leak Cost</h6>
-                                <p id="wmLeakCostOutput"></p>
+                                <p id="wm-leak-cost-output"></p>
                             </div>
                         </div>
                     </div>
@@ -189,7 +192,7 @@
         </div>
 
         <!-- LINK TO DEVICE OVERVIEW TABLE-->
-        <a id="deviceOverviewTable"></a>
+        <a id="device-overview-table"></a>
 
         <!-- DEVICE STATUS CHECK -->
 
@@ -240,7 +243,7 @@
                     </tr>
                 </thead>
                 <tbody id="riser-device-table-output">
-                    <tr id="loadingDot" class="d-none">
+                    <tr id="loading-dot" class="d-none">
                         <td colspan="6">
                             <div class="justify-content-center">
                                 <div
@@ -267,7 +270,7 @@
                     <div class="spinner-grow text-secondary" role="status">
                         <span class="sr-only"></span>
                     </div>
-                    <p class="mx-5" id="loadingPrompt">
+                    <p class="mx-5" id="loading-prompt">
                         Please Wait... Performing Initial Data Collection
                     </p>
                 </div>
@@ -277,9 +280,9 @@
                         <thead>
                             <tr>
                                 <th>Device Location</th>
-                                <th class="wsTableHeader">Leak Alert</th>
-                                <th class="wsTableHeader">Battery</th>
-                                <th class="wsTableHeader">Offline</th>
+                                <th class="ws-table-header">Leak Alert</th>
+                                <th class="ws-table-header">Battery</th>
+                                <th class="ws-table-header">Offline</th>
                             </tr>
                         </thead>
                         <tbody id="table-body"></tbody>
@@ -338,7 +341,7 @@
         </div>
 
         <!-- LINK TO CHART ANALYSIS-->
-        <a id="chartAnalysis"></a>
+        <a id="chart-analysis"></a>
 
         <!-- RISER CHART -->
         <div id="riser-chart"></div>
@@ -347,14 +350,14 @@
         <div id="pou-chart-container">
             <!-- LEGEND -->
             <div
-                id="legendContainer"
+                id="legend-container"
                 class="my-3 d-flex justify-content-center align-items-center"
             >
-                <div class="legendItem">
+                <div class="legend-item">
                     <div id="legend-marker-1"></div>
                     <p class="m-0">Low to Normal Activity</p>
                 </div>
-                <div class="legendItem">
+                <div class="legend-item">
                     <div id="legend-marker-2"></div>
                     <p class="m-0">High Activity Detected</p>
                 </div>
@@ -369,12 +372,12 @@
         <!-- COMPARISON CARDS -->
 
         <!-- LINK TO COMPARE DEVICES-->
-        <a id="compareDevices"></a>
+        <a id="compare-devices"></a>
 
         <div class="container my-4">
             <div class="row g-3">
                 <div
-                    id="compCardsLoadingDot"
+                    id="comp-cards-loading-dot"
                     class="d-none d-flex justify-content-center"
                 >
                     <div class="spinner-grow text-secondary" role="status">
@@ -384,9 +387,9 @@
                 <div class="col-md gx-3">
                     <div class="comparison-card">
                         <div class="d-flex justify-content-between">
-                            <h6 id="card1ChosenDevice">Choose Device</h6>
+                            <h6 id="card-1-chosen-device">Choose Device</h6>
                             <button
-                                class="choose-device-button card1DropdownArrow"
+                                class="choose-device-button card-1-dropdown-arrow"
                             >
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
@@ -408,19 +411,19 @@
                                 </svg>
                             </button>
                         </div>
-                        <div class="card1DropdownList device-dropdown">
-                            <ul class="card1DeviceList"></ul>
+                        <div class="card-1-dropdown-list device-dropdown">
+                            <ul class="card-1-device-list"></ul>
                         </div>
                         <hr />
                         <div class="d-flex flex-column">
                             <div class="info-container">
                                 <div class="info-block m-1">
                                     <h6 class="info-heading">Total Volume</h6>
-                                    <div id="totalVolumeOutput1">0</div>
+                                    <div id="total-volume-output-1">0</div>
                                 </div>
                                 <div class="info-block m-1">
                                     <h6 class="info-heading">Total Cost</h6>
-                                    <div id="totalCostOutput1">0</div>
+                                    <div id="total-cost-output-1">0</div>
                                 </div>
                             </div>
                             <div class="info-container">
@@ -428,23 +431,25 @@
                                     <h6 class="info-heading">
                                         Consumption Volume
                                     </h6>
-                                    <div id="consumptionVolumeOutput1">0</div>
+                                    <div id="consumption-volume-output-1">
+                                        0
+                                    </div>
                                 </div>
                                 <div class="info-block m-1">
                                     <h6 class="info-heading">
                                         Consumption Cost
                                     </h6>
-                                    <div id="consumptionCostOutput1">0</div>
+                                    <div id="consumption-cost-output-1">0</div>
                                 </div>
                             </div>
                             <div class="info-container">
                                 <div class="info-block m-1">
                                     <h6 class="info-heading">Leak Volume</h6>
-                                    <div id="leakVolumeOutput1">0</div>
+                                    <div id="leak-volume-output-1">0</div>
                                 </div>
                                 <div class="info-block m-1">
                                     <h6 class="info-heading">Leak Cost</h6>
-                                    <div id="leakCostOutput1">0</div>
+                                    <div id="leak-cost-output-1">0</div>
                                 </div>
                             </div>
                         </div>
@@ -453,9 +458,9 @@
                 <div class="col-md gx-3">
                     <div class="comparison-card card-two">
                         <div class="d-flex justify-content-between">
-                            <h6 id="card2ChosenDevice">Choose Device</h6>
+                            <h6 id="card-2-chosen-device">Choose Device</h6>
                             <button
-                                class="choose-device-button card2DropdownArrow"
+                                class="choose-device-button card-2-dropdown-arrow"
                             >
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
@@ -477,19 +482,19 @@
                                 </svg>
                             </button>
                         </div>
-                        <div class="card2DropdownList device-dropdown">
-                            <ul class="card2DeviceList"></ul>
+                        <div class="card-2-dropdown-list device-dropdown">
+                            <ul class="card-2-device-list"></ul>
                         </div>
                         <hr />
                         <div class="d-flex flex-column">
                             <div class="info-container">
                                 <div class="info-block m-1">
                                     <h6 class="info-heading">Total Volume</h6>
-                                    <div id="totalVolumeOutput2">0</div>
+                                    <div id="total-volume-output-2">0</div>
                                 </div>
                                 <div class="info-block m-1">
                                     <h6 class="info-heading">Total Cost</h6>
-                                    <div id="totalCostOutput2">0</div>
+                                    <div id="total-cost-output-2">0</div>
                                 </div>
                             </div>
                             <div class="info-container">
@@ -497,23 +502,25 @@
                                     <h6 class="info-heading">
                                         Consumption Volume
                                     </h6>
-                                    <div id="consumptionVolumeOutput2">0</div>
+                                    <div id="consumption-volume-output-2">
+                                        0
+                                    </div>
                                 </div>
                                 <div class="info-block m-1">
                                     <h6 class="info-heading">
                                         Consumption Cost
                                     </h6>
-                                    <div id="consumptionCostOutput2">0</div>
+                                    <div id="consumption-cost-output-2">0</div>
                                 </div>
                             </div>
                             <div class="info-container">
                                 <div class="info-block m-1">
                                     <h6 class="info-heading">Leak Volume</h6>
-                                    <div id="leakVolumeOutput2">0</div>
+                                    <div id="leak-volume-output-2">0</div>
                                 </div>
                                 <div class="info-block m-1">
                                     <h6 class="info-heading">Leak Cost</h6>
-                                    <div id="leakCostOutput2">0</div>
+                                    <div id="leak-cost-output-2">0</div>
                                 </div>
                             </div>
                         </div>
@@ -522,9 +529,9 @@
                 <div class="col-lg gx-3">
                     <div class="comparison-card card-three">
                         <div class="d-flex justify-content-between">
-                            <h6 id="card3ChosenDevice">Choose Device</h6>
+                            <h6 id="card-3-chosen-device">Choose Device</h6>
                             <button
-                                class="choose-device-button card3DropdownArrow"
+                                class="choose-device-button card-3-dropdown-arrow"
                             >
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
@@ -546,19 +553,19 @@
                                 </svg>
                             </button>
                         </div>
-                        <div class="card3DropdownList device-dropdown">
-                            <ul class="card3DeviceList"></ul>
+                        <div class="card-3-dropdown-list device-dropdown">
+                            <ul class="card-3-device-list"></ul>
                         </div>
                         <hr />
                         <div class="d-flex flex-column">
                             <div class="info-container">
                                 <div class="info-block m-1">
                                     <h6 class="info-heading">Total Volume</h6>
-                                    <div id="totalVolumeOutput3">0</div>
+                                    <div id="total-volume-output-3">0</div>
                                 </div>
                                 <div class="info-block m-1">
                                     <h6 class="info-heading">Total Cost</h6>
-                                    <div id="totalCostOutput3">0</div>
+                                    <div id="total-cost-output-3">0</div>
                                 </div>
                             </div>
                             <div class="info-container">
@@ -566,23 +573,25 @@
                                     <h6 class="info-heading">
                                         Consumption Volume
                                     </h6>
-                                    <div id="consumptionVolumeOutput3">0</div>
+                                    <div id="consumption-volume-output-3">
+                                        0
+                                    </div>
                                 </div>
                                 <div class="info-block m-1">
                                     <h6 class="info-heading">
                                         Consumption Cost
                                     </h6>
-                                    <div id="consumptionCostOutput3">0</div>
+                                    <div id="consumption-cost-output-3">0</div>
                                 </div>
                             </div>
                             <div class="info-container">
                                 <div class="info-block m-1">
                                     <h6 class="info-heading">Leak Volume</h6>
-                                    <div id="leakVolumeOutput3">0</div>
+                                    <div id="leak-volume-output-3">0</div>
                                 </div>
                                 <div class="info-block m-1">
                                     <h6 class="info-heading">Leak Cost</h6>
-                                    <div id="leakCostOutput3">0</div>
+                                    <div id="leak-cost-output-3">0</div>
                                 </div>
                             </div>
                         </div>
@@ -592,10 +601,10 @@
 
             <!-- Disclaimer -->
             <div
-                class="disclaimerContainer d-flex flex-column justify-content-between mt-5"
+                class="disclaimer-container d-flex flex-column justify-content-between mt-5"
             >
                 <ul class="list-unstyled">
-                    <li class="listItem">
+                    <li class="list-item">
                         Disclaimer: All water leak activity and usage
                         representations are based on an estimation and should
                         not be taken as an accurate figure, but rather as a
