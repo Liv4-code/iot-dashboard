@@ -3,8 +3,6 @@ const dashboardData = {
     deviceID: "622a0a5d38a5c00c19e4dd03",
     oneDay: 1000 * 60 * 60 * 24,
     twoDays: 1000 * 60 * 60 * 24 * 2,
-    riserDeviceList: [],
-    riserDates: [],
     deviceList: [],
 };
 
@@ -26,16 +24,9 @@ const wmWaterConsumptionOutput = document.querySelector(
 );
 const wmWaterCostOutput = document.querySelector("#wm-water-cost-output");
 const wmLeakCostOutput = document.querySelector("#wm-leak-cost-output");
-const loadingDot = document.querySelector("#loading-dot");
 const chartLoadingDot = document.querySelector("#chart-loading-dot");
-// Device tables
-const riserDeviceTable = document.querySelector("#riser-device-table");
-const riserDeviceTableOutput = document.querySelector(
-    "#riser-device-table-output"
-);
+// POU device tables
 const pouDeviceTable = document.querySelector("#pou-device-table");
-const selectPOUModeButton = document.querySelector("#select-pou-mode-btn");
-const selectRiserModeButton = document.querySelector("#select-riser-mode-btn");
 // Reference to comparison cards
 const compCardsLoadingDot = document.querySelector("#comp-cards-loading-dot");
 const card1DropdownArrow = document.querySelector(".card-1-dropdown-arrow");
@@ -189,8 +180,6 @@ const getRiserDeviceVariables = async (variablesURL) => {
 };
 
 const getOrganizationDevices = async (organizationKey) => {
-    // Add loading dot
-    loadingDot.classList.remove("d-none");
     try {
         const res = await fetch(
             `https://cs.api.ubidots.com/api/v2.0/devices/?organization__id=${organizationKey}&fields=label,properties,deviceType,id,variables`,
@@ -237,152 +226,6 @@ const getOrganizationDevices = async (organizationKey) => {
         floorsOutput.innerText = genericDevice[0].properties.floors;
         organizationAddressOutput.innerText =
             "14 Overbury St Cnr, Swartkoppies Street, Johannesburg, 1448";
-
-        // Filter out Riser devices from organizations devices
-        const riserDevices = data.results.filter((result) => {
-            if (result.properties.location === "Riser") {
-                riserDeviceTable.classList.remove("d-none");
-                return result;
-            }
-        });
-
-        // Request for riser devices variable data
-        const riserDeviceVariableDataPromises = [];
-        riserDevices.forEach((device) => {
-            riserDeviceVariableDataPromises.push(
-                getRiserDeviceVariables(device.variables)
-            );
-        });
-
-        const riserDevicesVariables = await Promise.all(
-            riserDeviceVariableDataPromises
-        );
-
-        riserDevices.forEach((result, index) => {
-            // Filtering out variables relevant to table
-            const highUageIndicationBit = riserDevicesVariables[
-                index
-            ].results.filter((variable) => {
-                if (variable.label === "high_usage_indication_bit") {
-                    return variable;
-                }
-            });
-            const leakStateBit = riserDevicesVariables[index].results.filter(
-                (variable) => {
-                    if (variable.label === "leak_state_bit") {
-                        return variable;
-                    }
-                }
-            );
-            const signalIndicationBit = riserDevicesVariables[
-                index
-            ].results.filter((variable) => {
-                if (variable.label === "signal_indication_bit") {
-                    return variable;
-                }
-            });
-            const batteryIndicationBit = riserDevicesVariables[
-                index
-            ].results.filter((variable) => {
-                if (variable.label === "battery_indication_bit") {
-                    return variable;
-                }
-            });
-            const deviceOfflineBit = riserDevicesVariables[
-                index
-            ].results.filter((variable) => {
-                if (variable.label === "device_offline_bit") {
-                    return variable;
-                }
-            });
-
-            // Compiling device instances from results
-            devices.id.push(result.id);
-            devices.labels.push(result.label);
-            devices.locations.push(
-                new Location(
-                    result.id,
-                    result.properties.location,
-                    result.properties.location_no,
-                    null,
-                    new Units(
-                        result.properties.unit,
-                        result.properties.unit_no,
-                        result.properties.location
-                    ),
-                    highUageIndicationBit[0].lastValue.value,
-                    leakStateBit[0].lastValue.value,
-                    signalIndicationBit[0].lastValue.value,
-                    batteryIndicationBit[0].lastValue.value,
-                    deviceOfflineBit[0].lastValue.value
-                )
-            );
-        });
-
-        devices.locations.sort((a, b) =>
-            parseInt(a.value) > parseInt(b.value) ? 1 : -1
-        );
-        // Add loading dot
-        loadingDot.classList.add("d-none");
-        // Rendering HTML
-        devices.locations.forEach((location, index) => {
-            riserDeviceTableOutput.innerHTML += `
-      <tr>
-      <td>${location.key + " " + location.value}</td>
-      <td><div class="riser-dot highUsageAlert"></div></td>
-      <td><div class="riser-dot leakAlert"></div></td>
-      <td><div class="riser-dot signalAlert"></div></td>
-      <td><div class="riser-dot batteryAlert"></div></td>
-      <td><div class="riser-dot offlineAlert"></div></td>
-    </tr>`;
-        });
-
-        const highUsageAlertOutputs =
-            document.querySelectorAll(".highUsageAlert");
-        const leakAlertOutputs = document.querySelectorAll(".leakAlert");
-        const signalAlertOutputs = document.querySelectorAll(".signalAlert");
-        const batteryAlertOutputs = document.querySelectorAll(".batteryAlert");
-        const offlineAlertOutputs = document.querySelectorAll(".offlineAlert");
-
-        devices.locations.forEach((location, index) => {
-            if (location.highUsage === 1) {
-                highUsageAlertOutputs[index].classList.add("yellow-alert");
-            } else if (location.highUsage === 0) {
-                highUsageAlertOutputs[index].classList.remove("yellow-alert");
-            } else if (!location.highUsage) {
-                highUsageAlertOutputs[index].classList.remove("yellow-alert");
-            }
-            if (location.leak === 1) {
-                leakAlertOutputs[index].classList.add("yellow-alert");
-            } else if (location.leak === 0) {
-                // leakAlertOutputs[index].classList.add("greenAlert");
-                leakAlertOutputs[index].classList.remove("yellow-alert");
-            } else {
-                leakAlertOutputs[index].classList.remove("yellow-alert");
-            }
-            if (location.signal === 1) {
-                signalAlertOutputs[index].classList.add("yellow-alert");
-                signalAlertOutputs[index].classList.remove("greenAlert");
-            } else if (location.signal === 0) {
-                signalAlertOutputs[index].classList.remove("yellow-alert");
-            } else {
-                signalAlertOutputs[index].classList.remove("yellow-alert");
-            }
-            if (location.battery === 1) {
-                batteryAlertOutputs[index].classList.add("yellow-alert");
-            } else if (location.battery === 0) {
-                batteryAlertOutputs[index].classList.remove("yellow-alert");
-            } else {
-                batteryAlertOutputs[index].classList.remove("yellow-alert");
-            }
-            if (location.offline === 1) {
-                offlineAlertOutputs[index].classList.add("yellow-alert");
-            } else if (location.offline === 0) {
-                offlineAlertOutputs[index].classList.remove("yellow-alert");
-            } else {
-                offlineAlertOutputs[index].classList.remove("yellow-alert");
-            }
-        });
     } catch (e) {
         console.log(e.message);
     }
@@ -763,19 +606,19 @@ function buildTable() {
 
 // Select different ODEUS device mode tables:
 
-selectPOUModeButton.addEventListener("click", () => {
-    riserDeviceTable.classList.add("d-none");
-    pouDeviceTable.classList.remove("d-none");
-    selectPOUModeButton.classList.add("d-none");
-    selectRiserModeButton.classList.remove("d-none");
-});
+// selectPOUModeButton.addEventListener("click", () => {
+//     riserDeviceTable.classList.add("d-none");
+//     pouDeviceTable.classList.remove("d-none");
+//     selectPOUModeButton.classList.add("d-none");
+//     selectRiserModeButton.classList.remove("d-none");
+// });
 
-selectRiserModeButton.addEventListener("click", () => {
-    pouDeviceTable.classList.add("d-none");
-    riserDeviceTable.classList.remove("d-none");
-    selectRiserModeButton.classList.add("d-none");
-    selectPOUModeButton.classList.remove("d-none");
-});
+// selectRiserModeButton.addEventListener("click", () => {
+//     pouDeviceTable.classList.add("d-none");
+//     riserDeviceTable.classList.remove("d-none");
+//     selectRiserModeButton.classList.add("d-none");
+//     selectPOUModeButton.classList.remove("d-none");
+// });
 
 // Reference to time picker buttons
 const dayButton = document.querySelector("#dayButton");

@@ -217,9 +217,6 @@
                     id="mode-selection-container"
                     class="d-flex justify-content-center align-items-center"
                 >
-                    <button id="select-pou-mode-btn" class="btn text-white">
-                        View Apartment Mode Table
-                    </button>
                     <button
                         id="select-riser-mode-btn"
                         class="btn text-white d-none"
@@ -229,38 +226,9 @@
                 </div>
             </div>
 
-            <!-- RISER TABLE-->
-
-            <table id="riser-device-table" class="table table-bordered d-none">
-                <thead>
-                    <tr>
-                        <th class="text-center">Status Check</th>
-                        <th class="text-center">High Usage</th>
-                        <th class="text-center">Leak</th>
-                        <th class="text-center">Signal</th>
-                        <th class="text-center">Battery</th>
-                        <th class="text-center">Offline</th>
-                    </tr>
-                </thead>
-                <tbody id="riser-device-table-output">
-                    <tr id="loading-dot" class="d-none">
-                        <td colspan="6">
-                            <div class="justify-content-center">
-                                <div
-                                    class="spinner-grow text-secondary"
-                                    role="status"
-                                >
-                                    <span class="sr-only"></span>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-
             <!-- POU TABLE -->
 
-            <div id="pou-device-table" class="d-none mb-5">
+            <div id="pou-device-table" class="mb-5">
                 <!-- Loading Dot -->
 
                 <div
@@ -598,21 +566,6 @@
                     </div>
                 </div>
             </div>
-
-            <!-- Disclaimer -->
-            <div
-                class="disclaimer-container d-flex flex-column justify-content-between mt-5"
-            >
-                <ul class="list-unstyled">
-                    <li class="list-item">
-                        Disclaimer: All water leak activity and usage
-                        representations are based on an estimation and should
-                        not be taken as an accurate figure, but rather as a
-                        guided indicator related to this estimation.
-                    </li>
-                </ul>
-            </div>
-        </div>
 
         <!-- SCRIPTS -->
         <script
